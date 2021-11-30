@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/23 13:37:55 by cemenjiv          #+#    #+#             */
-/*   Updated: 2021/11/24 15:07:47 by cemenjiv         ###   ########.fr       */
+/*   Created: 2021/09/26 10:27:09 by cemenjiv          #+#    #+#             */
+/*   Updated: 2021/10/14 11:19:00 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include <stdio.h>
-# include <stdarg.h>
-# include "libft/libft.h" 
+void	*ft_calloc(size_t count, size_t size)
+{
+	void	*ptr;
 
-int	ft_printf(const char *str, ...);
-
-#endif
+	ptr = malloc(count * size);
+	if (!ptr)
+		return (NULL);
+	ft_bzero(ptr, count * size);
+	return (ptr);
+}

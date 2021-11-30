@@ -1,22 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/23 13:37:55 by cemenjiv          #+#    #+#             */
-/*   Updated: 2021/11/24 15:07:47 by cemenjiv         ###   ########.fr       */
+/*   Created: 2021/10/01 09:57:13 by cemenjiv          #+#    #+#             */
+/*   Updated: 2021/10/12 13:43:45 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include <stdio.h>
-# include <stdarg.h>
-# include "libft/libft.h" 
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+{
+	char	*str;
+	int		i;
 
-int	ft_printf(const char *str, ...);
-
-#endif
+	i = 0;
+	if (!s)
+		return (NULL);
+	str = ft_strdup(s);
+	if (!str)
+		return (NULL);
+	while (str[i])
+	{
+		str[i] = (*f)(i, str[i]);
+		i++;
+	}
+	return (str);
+}

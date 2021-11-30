@@ -6,59 +6,53 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 12:56:00 by cemenjiv          #+#    #+#             */
-/*   Updated: 2021/11/19 12:16:47 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2021/11/30 16:18:30 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdarg.h>
 #include "ft_printf.h"
-/*
 
-1- Qu'est-ce qu'un argument variadique? (va_start, va_end, va_cpy, va_arg)
-2- Comment utiliser les kwargs en C? == Dictionary of keywords arguments. 
+#define LOWER_HEX "0123456789abcdef"
+#define UPPER_HEX "0123456789ABCDEF"
 
-Règles communes:
-1- Toute mémoire sur la heap doit être free
-2- Si Makefile, doit contenir all, clean, fclean et re (Pas de PHONY)
-3 - Si le projet autorise votre libft, vous devez copier ses sources et son Makefile
-associé dans un dossier libft contenu à la racine. Le Makefile de votre projet doit
-compiler la librairie à l’aide de son Makefile, puis compiler le projet. (IMPORTANT)
-4 - La libft et les MAkefile sont autorisés
-
-Partie obligatoire
-1- Je dois recoder la fonction printf de la libc.
-2- On NE doit PAS gérer de buffer contraire au vrai printf.
-3- Vous devez gérer les conversions suivantes : cspdiuxX%
-4- Vous devez utiliser la commande ar pour créer votre librairie, l’utilisation de la
-commande libtool est interdite
-
-Une petite description des conversions requises :
-•%c imprime un seul caractère.
-•%s imprime une chaîne de caractères.
-•%p L’argument de pointeur void * est imprimé en hexadécimal.
-•%d imprime un nombre décimal (base 10).
-•%i imprime un entier en base 10.
-•%u imprime un nombre décimal non signé (base 10).
-•%x imprime un nombre en hexadécimal (base 16).
-•%% imprime un signe de pourcentage..
-*/
-
-int ft_printf(const char *, ...); // in prototype there is no need to precise name of variable. Simply precise the type fo variable that they are waiting for. 
-
-int ft_printf(const char *str, ...) 
+void 	ft_putnbr_base(unsigned int nbr, int *num)
 {
-	int		CharacterCount;
-	int		PrintInteger; // variable that will contain integer to be printed %d. What to do with %i?
-	char	character;  //Variable that prints character (%c)
-	char	IntegerString[10]; // will contain integer. Size 10 because max integer is 2147483648 which contains 10 digits. 
-	char	*pPrintString; // will print string that needs to be used. 
-	//char	*PPrintAddress; // allows us to print memory address of %p. 
-	va_list	VaList;
+	int i;
+	int j;
+	int remainder;
+	char hexadecimal[100];
 
-	va_start(VaList, str); // permet de savoir ou commencer avec les arguments non-connu
+	printf("%u\n", nbr);
+	ft_putchar_fd('0', 1);
+	ft_putchar_fd('x', 1);
+	remainder = 0;
+	j = 0;
+	while (nbr != 0)
+	{
+		remainder = nbr % 16;
+		if (remainder < 10)
+			hexadecimal[j++] = 48 + remainder;
+		else
+			hexadecimal[j++] = ft_tolower(55 + remainder);
+		nbr = nbr / 16;	
+		num++;	
+	}
+	i = j;
+	while (i >= 0)
+		write(1, &hexadecimal[i--], 1);
+}
 
-	CharacterCount = 0;
+int	ft_printf(const char *str, ...)
+{
+	int				character_count;
+	int				print_integer;
+	unsigned int	address;
+	int				character;
+	char			*print_string;
+	va_list			va_list1;
+
+	va_start(va_list1, str);
+	character_count = 0;
 	while (*str)
 	{
 		if (*str == '%')
@@ -66,86 +60,82 @@ int ft_printf(const char *str, ...)
 			str++;
 			if (*str == 'c')
 			{
-				character = va_arg(VaList, int);
+				character = va_arg(va_list1, int);
 				ft_putchar_fd(character, 1);
 				str++;
-				CharacterCount++;
-				break;  
+				character_count++;
 			}
 			else if (*str == 's')
 			{
-				pPrintString = va_arg(VaList, char *);
-				ft_putstr_fd (pPrintString, 1);  //fputs(pPrintString, stdout); // Remplacer fputs par qqchose d'autres, sûrement write ft_putstr_fd
-				str++; //Avance de 1 dans 
-				CharacterCount += ft_strlen(pPrintString);
-				break;
-			}
-			/*else if (*str = 'p') //To be completed
-			{
-				pPrintAddress = va_arg(VaList, void *)
-				ft_isalnum // créer une fonction qui applique le ft_isalnum en loop
-				************* 
-				*************
-			}*/
-			else if (*str == 'd') // à valider
-			{
-				PrintInteger = va_arg (VaList, int);
-				ft_itoa (PrintInteger); // or _itoa(PrintInteger, IntegerString, 10);
-				ft_putstr_fd (IntegerString, 1);//fputs(IntegerString, stdout);
+				print_string = va_arg(va_list1, char *);
+				ft_putstr_fd (print_string, 1);
 				str++;
-				CharacterCount += ft_strlen(IntegerString);
-				break;
+				character_count += ft_strlen(print_string);
 			}
-			else if (*str == 'i')
+			else if (*str == 'p')
 			{
-				PrintInteger = va_arg (VaList, int);
-				ft_itoa (PrintInteger); // or _itoa(PrintInteger, IntegerString, 10);
-				ft_putstr_fd(IntegerString, 1); // le chiffre équivaut ici à stdout 0 = stdin 1 =stdout 2= stderr; 
+				address = va_arg(va_list1, int);
+				ft_putnbr_base (address, &character_count);
 				str++;
-				CharacterCount += ft_strlen(IntegerString);
-				break;
 			}
-			//else if (*str = 'u')
-			//else if (*str = 'x')
-			//else if (*str = 'X')
-			else if (*str == '%') // À valider si même chose que le dernier "else"; 
+			else if (*str == 'd' || *str == 'i')
 			{
-				ft_putchar_fd('%', 1);
+				print_integer = va_arg(va_list1, int);
+				ft_putnbr_fd (print_integer, 1);
 				str++;
-				CharacterCount++;
-				break;
+				character_count++;
 			}
 			else
-				ft_putchar_fd('%', 1);
-				ft_putchar_fd(*str, 1);
+			{
+				ft_putchar_fd ('%', 1);
+				ft_putchar_fd (*str, 1);
 				str++;
-				CharacterCount += 2;
-				break;
+				character_count += 2;
+			}
 		}
 		else
 		{
 			ft_putchar_fd(*str, 1);
 			str++;
-			CharacterCount++;
-			break;
+			character_count++;
 		}
 	}
-	va_end(VaList);
-	return (CharacterCount); // What do I need the characterCount for ? While CharacterCount is 
+	va_end(va_list1);
+	return (character_count);
 }
 
-int main ()
+int main (void)
 {
-	int a = 42;
-	int i = 0;
-	char *str = "J'ai faim";
+	int a = 456297;
+	int b = 268999;
+	char c = 'Z';
+	char *str = "Cesar Menjivar";
 
-	printf("Mon nom est César et %s et j'ai aussi %d ans \n", str, a);
-	
-	while (i < 100)
-	{
-		ft_printf("Mon nom est César et %s et j'ai aussi %d ans\n");
-		i++;
-	}
-	
+	printf ("\n*******************TEST CHAR (c)*******************************\n");
+	printf("PRINTF donne un resultat de ----> %c\n", c);
+	ft_printf("FT_PRINTF donne un resultat de ----> %c\n", c);
+	printf ("******************************************************************\n\n");
+
+	printf ("*******************TEST STRING (s)*******************************\n");
+	printf("PRINTF donne un resultat de ----> %s\n", str);
+	ft_printf("FT_PRINTF donne un resultat de ----> %s\n", str);
+	printf ("******************************************************************\n\n");
+
+	printf ("\n*******************TEST INTEGER (p)*******************************\n");
+	printf("PRINTF donne un resultat de ----> %p\n", &a);
+	ft_printf("FT_PRINTF donne un resultat de ----> %p\n", &a);
+	printf ("******************************************************************\n\n");
+
+	//les addresse commence par 0x, mais pas totue necessarirement par 0x10! 
+
+	printf ("\n*******************TEST INTEGER (d)*******************************\n");
+	printf("PRINTF donne un resultat de ----> %d\n", a);
+	ft_printf("FT_PRINTF donne un resultat de ----> %d\n", a);
+	printf ("******************************************************************\n\n");
+
+	printf ("*******************TEST INTEGER (i)*******************************\n");
+	printf("PRINTF donne un resultat de ----> %i\n", b);
+	ft_printf("FT_PRINTF donne un resultat de ----> %i\n", b);
+	printf ("******************************************************************\n\n");
+
 }
