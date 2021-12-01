@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_itoa_new.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/30 15:56:42 by cemenjiv          #+#    #+#             */
-/*   Updated: 2021/12/01 13:25:54 by cemenjiv         ###   ########.fr       */
+/*   Created: 2021/12/01 13:25:31 by cemenjiv          #+#    #+#             */
+/*   Updated: 2021/12/01 13:32:29 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-static int	nb_length(long long n)
+static int	nb_length_new(long long n)
 {
 	int	length;
 
@@ -32,7 +32,7 @@ static int	nb_length(long long n)
 	return (length);
 }
 
-char	*ft_itoa(int n)
+char	*ft_itoa_new(int n, int *count)
 {
 	char			*str;
 	int				size;
@@ -40,7 +40,7 @@ char	*ft_itoa(int n)
 	long long		nb;
 
 	nb = (long long)n;
-	size = nb_length(nb);
+	size = nb_length_new(nb);
 	str = (char *)malloc((size + 1) * sizeof(*str));
 	if (!str)
 		return (NULL);
@@ -58,5 +58,6 @@ char	*ft_itoa(int n)
 	}
 	str[i] = (char)(nb % 10 + 48);
 	str[size] = '\0';
+	(*count) += ft_strlen(str);
 	return (str);
 }

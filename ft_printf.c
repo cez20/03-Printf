@@ -6,25 +6,38 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 12:56:00 by cemenjiv          #+#    #+#             */
-/*   Updated: 2021/11/30 16:18:30 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2021/12/01 15:42:19 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-#define LOWER_HEX "0123456789abcdef"
-#define UPPER_HEX "0123456789ABCDEF"
-
-void 	ft_putnbr_base(unsigned int nbr, int *num)
+void	ft_putnbr_fd_new(unsigned int n, int fd)
 {
-	int i;
-	int j;
-	int remainder;
-	char hexadecimal[100];
+	if (n < 0)
+	{
+		ft_putchar_fd('-', fd);
+		n = -n;
+	}
+	if (n >= 10)
+	{
+		ft_putnbr_fd_new((n / 10), fd);
+		n = n % 10;
+	}
+	if (n >= 0 && n < 10)
+		ft_putchar_fd(n + '0', fd);
+}
 
-	printf("%u\n", nbr);
+void	ft_putnbr_addr_hex(long long nbr, int *count)
+{
+	int			i;
+	int			j;
+	long long	remainder;
+	char		hexadecimal[100];
+
 	ft_putchar_fd('0', 1);
 	ft_putchar_fd('x', 1);
+	(*count) += 2;
 	remainder = 0;
 	j = 0;
 	while (nbr != 0)
@@ -34,20 +47,69 @@ void 	ft_putnbr_base(unsigned int nbr, int *num)
 			hexadecimal[j++] = 48 + remainder;
 		else
 			hexadecimal[j++] = ft_tolower(55 + remainder);
-		nbr = nbr / 16;	
-		num++;	
+		nbr = nbr / 16;
+		(*count)++;
 	}
-	i = j;
+	i = j - 1;
 	while (i >= 0)
-		write(1, &hexadecimal[i--], 1);
+		write (1, &hexadecimal[i--], 1);
+}
+
+void	ft_putnbr_int_hex(long long nbr, int *count)
+{
+	int			i;
+	int			j;
+	long long	remainder;
+	char		hexadecimal[100];
+
+	remainder = 0;
+	j = 0;
+	while (nbr != 0)
+	{
+		remainder = nbr % 16;
+		if (remainder < 10)
+			hexadecimal[j++] = 48 + remainder;
+		else
+			hexadecimal[j++] = ft_tolower(55 + remainder);
+		nbr = nbr / 16;
+		(*count)++;
+	}
+	i = j - 1;
+	while (i >= 0)
+		write (1, &hexadecimal[i--], 1);
+}
+
+void	ft_putnbr_int_hex1(long long nbr, int *count)
+{
+	int			i;
+	int			j;
+	long long	remainder;
+	char		hexadecimal[100];
+
+	remainder = 0;
+	j = 0;
+	while (nbr != 0)
+	{
+		remainder = nbr % 16;
+		if (remainder < 10)
+			hexadecimal[j++] = 48 + remainder;
+		else
+			hexadecimal[j++] = 55 + remainder;
+		nbr = nbr / 16;
+		(*count)++;
+	}
+	i = j - 1;
+	while (i >= 0)
+		write (1, &hexadecimal[i--], 1);
 }
 
 int	ft_printf(const char *str, ...)
 {
 	int				character_count;
 	int				print_integer;
-	unsigned int	address;
 	int				character;
+	unsigned int	number;
+	long long		address;
 	char			*print_string;
 	va_list			va_list1;
 
@@ -74,21 +136,46 @@ int	ft_printf(const char *str, ...)
 			}
 			else if (*str == 'p')
 			{
-				address = va_arg(va_list1, int);
-				ft_putnbr_base (address, &character_count);
+				address = va_arg(va_list1, long long);
+				ft_putnbr_addr_hex (address, &character_count);
 				str++;
 			}
 			else if (*str == 'd' || *str == 'i')
 			{
 				print_integer = va_arg(va_list1, int);
 				ft_putnbr_fd (print_integer, 1);
+				ft_itoa_new(print_integer, &character_count);
+				str++;
+			}
+			else if (*str == 'u')
+			{
+				number = va_arg(va_list1, unsigned int);
+				ft_putnbr_fd_new (number, 1);
+				ft_itoa_new1(number, &character_count);
+				str++;
+			}
+			else if (*str == 'x')
+			{
+				address = va_arg(va_list1, long long);
+				ft_putnbr_int_hex (address, &character_count);
+				str++;
+			}
+			else if (*str == 'X')
+			{
+				address = va_arg(va_list1, long long);
+				ft_putnbr_int_hex1(address, &character_count);
+				str++;
+			}
+			else if (*str == '%')
+			{
+				ft_putchar_fd ('%', 1);
 				str++;
 				character_count++;
 			}
-			else
+			else 
 			{
-				ft_putchar_fd ('%', 1);
-				ft_putchar_fd (*str, 1);
+				ft_putchar_fd('%', 1);
+				ft_putchar_fd(*str, 1);
 				str++;
 				character_count += 2;
 			}
@@ -102,40 +189,4 @@ int	ft_printf(const char *str, ...)
 	}
 	va_end(va_list1);
 	return (character_count);
-}
-
-int main (void)
-{
-	int a = 456297;
-	int b = 268999;
-	char c = 'Z';
-	char *str = "Cesar Menjivar";
-
-	printf ("\n*******************TEST CHAR (c)*******************************\n");
-	printf("PRINTF donne un resultat de ----> %c\n", c);
-	ft_printf("FT_PRINTF donne un resultat de ----> %c\n", c);
-	printf ("******************************************************************\n\n");
-
-	printf ("*******************TEST STRING (s)*******************************\n");
-	printf("PRINTF donne un resultat de ----> %s\n", str);
-	ft_printf("FT_PRINTF donne un resultat de ----> %s\n", str);
-	printf ("******************************************************************\n\n");
-
-	printf ("\n*******************TEST INTEGER (p)*******************************\n");
-	printf("PRINTF donne un resultat de ----> %p\n", &a);
-	ft_printf("FT_PRINTF donne un resultat de ----> %p\n", &a);
-	printf ("******************************************************************\n\n");
-
-	//les addresse commence par 0x, mais pas totue necessarirement par 0x10! 
-
-	printf ("\n*******************TEST INTEGER (d)*******************************\n");
-	printf("PRINTF donne un resultat de ----> %d\n", a);
-	ft_printf("FT_PRINTF donne un resultat de ----> %d\n", a);
-	printf ("******************************************************************\n\n");
-
-	printf ("*******************TEST INTEGER (i)*******************************\n");
-	printf("PRINTF donne un resultat de ----> %i\n", b);
-	ft_printf("FT_PRINTF donne un resultat de ----> %i\n", b);
-	printf ("******************************************************************\n\n");
-
 }

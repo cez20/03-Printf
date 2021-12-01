@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_itoa_new1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/30 15:56:42 by cemenjiv          #+#    #+#             */
-/*   Updated: 2021/12/01 13:25:54 by cemenjiv         ###   ########.fr       */
+/*   Created: 2021/12/01 15:11:35 by cemenjiv          #+#    #+#             */
+/*   Updated: 2021/12/01 15:15:00 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-static int	nb_length(long long n)
+static int	nb_length_new(unsigned int n)
 {
 	int	length;
 
@@ -32,31 +32,25 @@ static int	nb_length(long long n)
 	return (length);
 }
 
-char	*ft_itoa(int n)
+char	*ft_itoa_new1(unsigned int n, int *count)
 {
 	char			*str;
 	int				size;
 	int				i;
-	long long		nb;
-
-	nb = (long long)n;
-	size = nb_length(nb);
+	
+	size = nb_length_new(n);
 	str = (char *)malloc((size + 1) * sizeof(*str));
 	if (!str)
 		return (NULL);
 	i = 0;
-	if (nb < 0)
-	{
-		str[i] = '-';
-		nb = -nb;
-	}
 	i = size - 1;
-	while (nb >= 10)
+	while (n >= 10)
 	{
-		str[i--] = (nb % 10 + 48);
-		nb = nb / 10;
+		str[i--] = (n % 10 + 48);
+		n = n / 10;
 	}
-	str[i] = (char)(nb % 10 + 48);
+	str[i] = (char)(n % 10 + 48);
 	str[size] = '\0';
+	(*count) += ft_strlen(str);
 	return (str);
 }
