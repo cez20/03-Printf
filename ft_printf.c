@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 12:56:00 by cemenjiv          #+#    #+#             */
-/*   Updated: 2021/12/03 15:24:28 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2021/12/03 17:37:59 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	print_flag(va_list va_list1, const char *str, int *count)
 	else if (*str == 's')
 		ft_putstr_new (va_arg(va_list1, char *), count);
 	else if (*str == 'p')
-		ft_putnbr_addr_hex (va_arg(va_list1, long long), count);
+		ft_putnbr_addr_hex (va_arg(va_list1, unsigned long), count);
 	else if (*str == 'd' || *str == 'i')
 		ft_putnbr_new(va_arg(va_list1, int), count);
 	else if (*str == 'u')
