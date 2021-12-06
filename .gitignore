@@ -2,3 +2,5 @@
 .DS_Store
 a.out
 main.c
+ft_printf_tester
+ftprintfdestructor
