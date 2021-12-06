@@ -6,12 +6,12 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 15:39:49 by cemenjiv          #+#    #+#             */
-/*   Updated: 2021/12/06 13:22:13 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2021/12/06 14:15:01 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.>
+#include <stdio.h>
 
 int main (void)
 {

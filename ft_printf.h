@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 12:01:29 by cemenjiv          #+#    #+#             */
-/*   Updated: 2021/12/06 13:24:54 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2021/12/06 16:14:39 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ void	ft_putnbr_new(int n, int *count);
 void	ft_putnbr_new1(int n, int *count);
 void	ft_putstr_new(char *s, int *count);
 void	ft_putnbr_hex(size_t num, size_t base_len, char *base, int *count);
+void	ft_putnbr_hex1(unsigned num, unsigned base_len, char *base, int *count);
 
 #endif
