@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 15:39:49 by cemenjiv          #+#    #+#             */
-/*   Updated: 2021/12/06 11:11:08 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2021/12/06 12:24:46 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,18 @@ int main (void)
 	ft_printf("FT_PRINTF number of characters is ----> %d\n", ft_printf("%s\n", str3));
 	printf ("******************************************************************\n\n");
 
-	printf ("\n*******************TEST (p)*******************************\n");
+	printf ("\n*******************TEST (p #1)*******************************\n");
 	printf   ("PRINTF donne un resultat de ---->    %p\n", &a);
 	ft_printf("FT_PRINTF donne un resultat de ----> %p\n", &a);
 	printf   ("PRINTF number of characters is    ----> %d\n", printf("%p\n", &a));
 	ft_printf("FT_PRINTF number of characters is ----> %d\n", ft_printf("%p\n", &a));
+	printf ("******************************************************************\n\n");
+
+	printf ("\n*******************TEST (p #2)*******************************\n");
+	printf   ("PRINTF donne un resultat de ---->    %p\n", (void *)-1);
+	ft_printf("FT_PRINTF donne un resultat de ----> %p\n", (void *)-1);
+	printf   ("PRINTF number of characters is    ----> %d\n", printf("%p\n", (void *)-1));
+	ft_printf("FT_PRINTF number of characters is ----> %d\n", ft_printf("%p\n", (void *)-1));
 	printf ("******************************************************************\n\n");
 
 	printf ("\n*******************TEST (d)*******************************\n");
@@ -87,10 +94,10 @@ int main (void)
 	printf ("******************************************************************\n\n");
 
 	printf ("*******************TEST (x)*******************************\n");
-	printf   ("PRINTF donne un resultat de ---->    %x\n", b);
-	ft_printf("FT_PRINTF donne un resultat de ----> %x\n", b);
-	printf   ("PRINTF number of characters is    ----> %d\n", printf("%x\n", b));
-	ft_printf("FT_PRINTF number of characters is ----> %d\n", ft_printf("%x\n", b));
+	printf   ("PRINTF donne un resultat de ---->    %x\n", a);
+	ft_printf("FT_PRINTF donne un resultat de ----> %x\n", a);
+	printf   ("PRINTF number of characters is    ----> %d\n", printf("%x\n", a));
+	ft_printf("FT_PRINTF number of characters is ----> %d\n", ft_printf("%x\n", a));
 	printf ("******************************************************************\n\n");
 
 	printf ("*******************TEST (X)*******************************\n");
