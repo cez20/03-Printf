@@ -3,6 +3,7 @@
 a.out
 main.c
 ft_printf_tester
+printf_tester
 ftprintfdestructor
 libftprintf.a
 *.o
