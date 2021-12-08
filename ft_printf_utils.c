@@ -6,22 +6,19 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 09:54:07 by cemenjiv          #+#    #+#             */
-/*   Updated: 2021/12/08 11:55:34 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2021/12/08 13:35:50 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	ft_putchar_new(char c, int *count, char **buf)
+void	ft_putchar_new(char c, int *count, char ***buf)
 {
-	*buf = malloc(2 * sizeof(*buf));
+	**buf = malloc(1 * sizeof(char));
 	if (!buf)
-		return (NULL);
-	*buf[0] = c;
-	*buf[1] = '\0';
-	write(1, buf, 1);
-	free (*buf);
-	*buf = NULL;
+		return ;
+	**buf[0] = c;
+	write(1, **buf, 1);
 	(*count)++;
 }
 
