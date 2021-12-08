@@ -6,19 +6,26 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 09:54:07 by cemenjiv          #+#    #+#             */
-/*   Updated: 2021/12/07 09:54:11 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2021/12/08 11:55:34 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putchar_new(char c, int *count)
+char	ft_putchar_new(char c, int *count, char **buf)
 {
-	write(1, &c, 1);
+	*buf = malloc(2 * sizeof(*buf));
+	if (!buf)
+		return (NULL);
+	*buf[0] = c;
+	*buf[1] = '\0';
+	write(1, buf, 1);
+	free (*buf);
+	*buf = NULL;
 	(*count)++;
 }
 
-void	ft_putnbr_new(int n, int *count)
+/*void	ft_putnbr_new(int n, int *count)
 {
 	long long	nb;
 
@@ -65,13 +72,13 @@ void	ft_putstr_new(char *s, int *count)
 	}
 }
 
-void	ft_putnbr_hex(size_t num, size_t base_len, char *base, int *count)
+void	ft_putnbr_hex(size_t num, char *base, int *count)
 {
 	char	c;
 
-	if (num >= base_len)
-		ft_putnbr_hex(num / base_len, base_len, base, count);
-	c = base[(num % base_len)];
+	if (num >= 16)
+		ft_putnbr_hex(num / 16, base_len, base, count);
+	c = base[(num % 16)];
 	write(1, &c, 1);
 	(*count)++;
-}
+}*/
