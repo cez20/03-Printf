@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 12:56:00 by cemenjiv          #+#    #+#             */
-/*   Updated: 2021/12/08 13:42:16 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2021/12/09 09:59:52 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	print_flag(va_list va_list1, const char *str, int *count, char **buf)
 {
 	if (*str == 'c')
-		ft_putchar_new (va_arg(va_list1, int), count, &buf);
+		ft_putchar_new (va_arg(va_list1, int), count, buf);
 	/*else if (*str == 's')
 		ft_putstr_new (va_arg(va_list1, char *), count);
 	else if (*str == 'p')
@@ -24,20 +24,22 @@ void	print_flag(va_list va_list1, const char *str, int *count, char **buf)
 		ft_putnbr_hex(va_arg(va_list1, size_t), LOW_HEX, count);
 	}
 	else if (*str == 'd' || *str == 'i')
-		ft_putnbr_new(va_arg(va_list1, int), count);
+		ft_putnbr_new(va_arg(va_list1, int), count, &buf);
 	else if (*str == 'u')
-		ft_putnbr_new1(va_arg(va_list1, int), count);
+		ft_putnbr_new1(va_arg(va_list1, int), count, &buf);
 	else if (*str == 'x')
 		ft_putnbr_hex(va_arg(va_list1, unsigned), LOW_HEX, count);
 	else if (*str == 'X')
 		ft_putnbr_hex(va_arg(va_list1, unsigned), UP_HEX, count);
 	else if (*str == '%')
-		ft_putchar_new('%', count);
-	else
+		ft_putchar_new('%', count, &buf);*/
+	/*else
 	{
 		ft_putchar_new('%', count, buf);
 		ft_putchar_new(*str, count, buf);
 	}*/
+	//free (buf);
+	//buf = NULL;
 }
 
 int	ft_printf(const char *str, ...)
@@ -54,13 +56,13 @@ int	ft_printf(const char *str, ...)
 		if (*str == '%')
 		{
 			str++;
-			print_flag(va_list1, str, &count, &buffer);
+			print_flag(va_list1, str, &count, buffer);
 		}
-		/*else
-			ft_putchar_new(*str, &count, &(&buffer));*/
+		else
+			ft_putchar_new(*str, &count, &buffer);
 		str++;
-		free(buffer); // on a free qu'une seule fois, car nous avons crée 3 palliers de pointeurs. La 1ere fonction avec un seul pointeur, la seule qui prend un double pointeur et la 3e qui prend un triple pointeur
-		buffer = NULL; // Sinon, nous aurions pu créer des fonctions qui prennent un pointeur simple dans chaque fonction, mais il aurait faire un free dans chacun de ces fonctions ?? àa valider. 
+		free(buffer); 
+		buffer = NULL; 
 	}
 	va_end(va_list1);
 	return (count);
