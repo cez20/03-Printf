@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 12:01:29 by cemenjiv          #+#    #+#             */
-/*   Updated: 2021/12/09 09:53:04 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2021/12/09 13:25:14 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@
 
 int		ft_printf(const char *str, ...);
 void	ft_putchar_new(char c, int *count, char **buf);
+void	ft_putstr_new(char *s, int *count, char **buf);
 //void	ft_putnbr_new(int n, int *count, char **buf);
 //void	ft_putnbr_new1(int n, int *count, char **buf);
-//void	ft_putstr_new(char *s, int *count);
 //void	ft_putnbr_hex(size_t num, char *base, int *count);
 
 #endif

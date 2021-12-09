@@ -8,3 +8,4 @@ ftprintfdestructor
 libftprintf.a
 *.o
 *test
+libft/libft.a

@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 09:54:07 by cemenjiv          #+#    #+#             */
-/*   Updated: 2021/12/09 10:02:17 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2021/12/09 13:29:18 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,21 @@ void	ft_putchar_new(char c, int *count, char **buf)
 	*buf[0] = c;
 	write(1, *buf, 1);
 	(*count)++;
+}
+
+void	ft_putstr_new(char *s, int *count, char **buf)
+{
+	if (!s)
+	{
+		write(1, "(null)", 6);
+		(*count) += 6;
+	}
+	else
+	{
+		*buf = ft_strdup(s);
+		write(1, *buf, ft_strlen(*buf));
+		(*count) += ft_strlen(*buf);
+	}
 }
 
 void	ft_putnbr_new(int n, int *count, char **buf)
@@ -53,20 +68,6 @@ void	ft_putnbr_new1(int n, int *count, char **buf)
 	}
 	if (nb >= 0 && nb < 10)
 		ft_putchar_new(nb + '0', count, buf);
-}
-
-void	ft_putstr_new(char *s, int *count)
-{
-	if (!s)
-	{
-		write(1, "(null)", 6);
-		(*count) += 6;
-	}
-	else
-	{
-		write(1, s, ft_strlen(s));
-		(*count) += ft_strlen(s);
-	}
 }
 
 void	ft_putnbr_hex(size_t num, char *base, int *count)
