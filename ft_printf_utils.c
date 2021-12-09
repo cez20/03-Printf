@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 09:54:07 by cemenjiv          #+#    #+#             */
-/*   Updated: 2021/12/09 13:29:18 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2021/12/09 16:17:34 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_putstr_new(char *s, int *count, char **buf)
 	}
 }
 
-void	ft_putnbr_new(int n, int *count, char **buf)
+/*void	ft_putnbr_new(int n, int *count, char **buf)
 {
 	long long	nb;
 
@@ -68,15 +68,30 @@ void	ft_putnbr_new1(int n, int *count, char **buf)
 	}
 	if (nb >= 0 && nb < 10)
 		ft_putchar_new(nb + '0', count, buf);
-}
+}*/
 
-void	ft_putnbr_hex(size_t num, char *base, int *count)
+void	ft_putnbr_hex(unsigned long long num, char *base, int *count, char **buf)
 {
-	char	c;
+	int size;
+	int remainder;
+	int i;
 
-	if (num >= 16)
-		ft_putnbr_hex(num / 16, base, count);
-	c = base[(num % 16)];
-	write(1, &c, 1);
-	(*count)++;
+	size = nb_length(num);
+	*buf = malloc((size) * sizeof(char));
+	*buf[0] = '0';
+	*buf[1] = 'x';
+	i = 2;
+	while (num != 0)
+	{
+		remainder = num % 16;
+		if (remainder < 10)
+			*buf[i++] = base[remainder];
+		else
+			*buf[i++] = base[remainder];
+		num = num / 16;
+	}
+	*buf[size] = '\0';
+
+	write (1, *buf, ft_strlen(*buf));
+	(*count) += ft_strlen(*buf);
 }

@@ -6,11 +6,11 @@
 #    By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/28 13:59:50 by cemenjiv          #+#    #+#              #
-#    Updated: 2021/12/07 09:54:28 by cemenjiv         ###   ########.fr        #
+#    Updated: 2021/12/09 14:18:23 by cemenjiv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS			= ft_printf.c ft_printf_utils.c
+SRCS			= ft_printf.c ft_printf_utils.c ft_printf_itoa.c
 				 
 OBJS			= $(SRCS:.c=.o)
 

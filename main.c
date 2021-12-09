@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 12:36:43 by cemenjiv          #+#    #+#             */
-/*   Updated: 2021/12/08 12:37:26 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2021/12/09 15:41:31 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 int main()
 {
 	char c = 'C';
-	ft_printf("%c\n", c);
+	printf ("%p\n", &c);
+	ft_printf("%p\n", &c);
 	return (0);
 }
 	
