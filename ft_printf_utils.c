@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 09:54:07 by cemenjiv          #+#    #+#             */
-/*   Updated: 2021/12/13 02:11:02 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2021/12/13 02:50:36 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,19 +64,26 @@ void	ft_putnbr_new(int n, int *count, char **buf)
 	(*count) += ft_strlen(*buf);
 }
 
-/*void	ft_putnbr_new1(int n, int *count, char **buf)
+void	ft_putnbr_new1(int n, int *count, char **buf)
 {
-	unsigned int	nb;
-
+	int length;
+	int i;
+	unsigned int nb;
+	
 	nb = (unsigned int)n;
-	if (nb >= 10)
+	length = nb_length1(nb);
+	*buf = malloc((length + 1) * sizeof(char));
+	i = (length - 1);
+	while (nb >= 10)
 	{
-		ft_putnbr_new1((nb / 10), count, buf);
-		nb = nb % 10;
+		*(*buf + i--) = '0' + (nb % 10);
+		nb = nb / 10;
 	}
-	if (nb >= 0 && nb < 10)
-		ft_putchar_new(nb + '0', count, buf);
-}*/
+	*(*buf + i) = '0' + nb;
+	*(*buf + length) = '\0';
+	write(1, *buf, ft_strlen(*buf));
+	(*count) += ft_strlen(*buf);
+}
 
 void	ft_putnbr_hex(size_t num, char *base, int *count, char **buf)
 {
@@ -109,6 +116,31 @@ void	ft_putnbr_hex(size_t num, char *base, int *count, char **buf)
 	write (1, *buf, ft_strlen(*buf));
 }
 
+void	ft_putnbr_hex1(size_t num, char *base, int *count, char **buf)
+{
+	size_t	size;
+	size_t	remainder;
+	size_t	i;
+	
+	size = hex_size1(num);
+	*buf = malloc(sizeof(char) * (size + 1)); 
+	if (!*buf)
+		return ;
+	i = size - 1;
+	remainder = 0;
+	if (num == 0)
+		*(*buf + i) = base[remainder];
+	while (num != 0)
+	{
+		remainder = num % 16;
+		*(*buf + i--) = base[remainder];
+		num = num / 16;
+	}
+	*(*buf + size) = '\0'; 
+	(*count) += ft_strlen(*buf);
+	write (1, *buf, ft_strlen(*buf));
+}
+
 size_t	hex_size(size_t nb)
 {
 	size_t count;
@@ -120,6 +152,21 @@ size_t	hex_size(size_t nb)
 		count++;
 	}
 	return (count += 2);
+}
+
+size_t	hex_size1(size_t nb)
+{
+	size_t count;
+	
+	count = 0;
+	if (nb == 0)
+		count++;
+	while (nb != 0)
+	{
+		nb = nb / 16;
+		count++;
+	}
+	return (count);
 }
 
 int	nb_length(long long n)
@@ -139,5 +186,19 @@ int	nb_length(long long n)
 	}	
 	if (n >= 0 && n < 10)
 		length++;
+	return (length);
+}
+
+int	nb_length1(unsigned n)
+{
+	int	length;
+
+	length = 0;
+	while (n >= 10)
+	{
+		n = n / 10;
+		length++;
+	}	
+	length++;
 	return (length);
 }
