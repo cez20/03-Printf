@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 09:54:07 by cemenjiv          #+#    #+#             */
-/*   Updated: 2021/12/09 16:17:34 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2021/12/12 23:24:57 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	ft_putstr_new(char *s, int *count, char **buf)
 	else
 	{
 		*buf = ft_strdup(s);
+		printf("%ld\n", ft_strlen(*buf));
 		write(1, *buf, ft_strlen(*buf));
 		(*count) += ft_strlen(*buf);
 	}
@@ -70,28 +71,40 @@ void	ft_putnbr_new1(int n, int *count, char **buf)
 		ft_putchar_new(nb + '0', count, buf);
 }*/
 
-void	ft_putnbr_hex(unsigned long long num, char *base, int *count, char **buf)
+void	ft_putnbr_hex(size_t num, char *base, int *count, char **buf)
 {
-	int size;
-	int remainder;
-	int i;
-
-	size = nb_length(num);
-	*buf = malloc((size) * sizeof(char));
-	*buf[0] = '0';
-	*buf[1] = 'x';
-	i = 2;
+	size_t remainder;
+	size_t i;
+	
+	remainder = 0;
+	*buf = malloc(sizeof(char) * (hex_size(num) + 1)); 
+	if (!*buf)
+		return ;
+	i = 0;
+	*(*buf + i++) = '0';
+	*(*buf + i++) = 'x';
 	while (num != 0)
 	{
 		remainder = num % 16;
 		if (remainder < 10)
-			*buf[i++] = base[remainder];
+			*(*buf + i++) = base[remainder];
 		else
-			*buf[i++] = base[remainder];
+			*(*buf + i++) = base[remainder];
 		num = num / 16;
 	}
-	*buf[size] = '\0';
-
-	write (1, *buf, ft_strlen(*buf));
+	*(*buf + i) = '\0'; // c'est cet element qui cause le still reachable memory
 	(*count) += ft_strlen(*buf);
+	write (1, *buf, ft_strlen(*buf));
+}
+
+size_t	hex_size(size_t nb)
+{
+	size_t count;
+	
+	while (nb != 0)
+	{
+		nb = nb / 16;
+		count++;
+	}
+	return (count += 2);
 }
