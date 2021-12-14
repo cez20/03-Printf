@@ -6,11 +6,11 @@
 #    By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/28 13:59:50 by cemenjiv          #+#    #+#              #
-#    Updated: 2021/12/12 23:44:08 by cemenjiv         ###   ########.fr        #
+#    Updated: 2021/12/13 19:19:37 by cemenjiv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS			= ft_printf.c ft_printf_utils.c 
+SRCS			= ft_printf.c ft_printf_hex.c ft_printf_nbr.c ft_printf_str.c
 				 
 OBJS			= $(SRCS:.c=.o)
 
@@ -30,7 +30,7 @@ $(NAME):		$(OBJS)
 				ar rcs $(NAME) $(OBJS)
 				ranlib $(NAME)
 				
-clean:			
+clean:		
 				$(MAKE) clean -C ./libft
 				$(RM) -f $(OBJS)
 				
