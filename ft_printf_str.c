@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 09:54:07 by cemenjiv          #+#    #+#             */
-/*   Updated: 2021/12/13 19:25:28 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2021/12/15 18:44:52 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_putchar_new(char c, int *count, char **buf)
 	*buf = malloc(1 * sizeof(char));
 	if (!buf)
 		return ;
-	*buf[0] = c;
+	*(*buf) = c;
 	write(1, *buf, 1);
 	(*count)++;
 }
