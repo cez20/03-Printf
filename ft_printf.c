@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 12:56:00 by cemenjiv          #+#    #+#             */
-/*   Updated: 2021/12/13 18:36:19 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2021/12/15 18:54:29 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,6 @@ void	print_flag(va_list va_list1, const char *str, int *count, char **buf)
 		ft_putnbr_hex1(va_arg(va_list1, unsigned), UP_HEX, count, buf);
 	else if (*str == '%')
 		ft_putchar_new('%', count, buf);
-	else
-	{
-		ft_putchar_new('%', count, buf);
-		ft_putchar_new(*str, count, buf);
-	}
 }
 
 int	ft_printf(const char *str, ...)
