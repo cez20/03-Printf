@@ -8,6 +8,4 @@ ftprintfdestructor
 libftprintf.a
 *.o
 *test
-libft/libft.a
 .vimrc
-srcs/
