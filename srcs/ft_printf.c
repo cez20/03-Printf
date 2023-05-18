@@ -6,11 +6,11 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 12:56:00 by cemenjiv          #+#    #+#             */
-/*   Updated: 2023/05/17 22:35:15 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2023/05/17 23:34:32 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ft_printf/ft_printf.h"
+#include "ft_printf.h"
 
 void	print_flag(va_list va_list1, const char *str, int *count, char **buf)
 {

@@ -6,11 +6,11 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 12:36:43 by cemenjiv          #+#    #+#             */
-/*   Updated: 2023/05/17 22:35:18 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2023/05/17 23:34:40 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ft_printf/ft_printf.h"
+#include "ft_printf.h"
 
 int main()
 {
