@@ -1,29 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memchr.c                                        :+:      :+:    :+:   */
+/*   ft_printf_str.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/06 14:23:26 by cemenjiv          #+#    #+#             */
-/*   Updated: 2021/12/09 22:50:53 by cemenjiv         ###   ########.fr       */
+/*   Created: 2021/12/07 09:54:07 by cemenjiv          #+#    #+#             */
+/*   Updated: 2023/05/18 12:52:08 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	*ft_memchr(const void *s, int c, size_t n)
+void	ft_putchar_new(char c, int *count, char **buf)
 {
-	size_t			i;
-	unsigned char	*ptr;
+	*buf = malloc(1 * sizeof(char));
+	if (!buf)
+		return ;
+	*(*buf) = c;
+	write(1, *buf, 1);
+	(*count)++;
+}
 
-	i = 0;
-	ptr = (unsigned char *)s;
-	while (i < n)
+void	ft_putstr_new(char *s, int *count, char **buf)
+{
+	if (!s)
 	{
-		if (ptr[i] == (unsigned char)c)
-			return ((void *)s + i);
-		i++;
+		*buf = malloc(7 * sizeof(char));
+		ft_strlcpy (*buf, "(null)", 7);
 	}
-	return (NULL);
+	else
+		*buf = ft_strdup(s);
+	write(1, *buf, ft_strlen(*buf));
+	(*count) += ft_strlen(*buf);
 }

@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/21 12:21:20 by cemenjiv          #+#    #+#             */
-/*   Updated: 2021/10/21 13:02:43 by cemenjiv         ###   ########.fr       */
+/*   Created: 2021/12/08 12:36:43 by cemenjiv          #+#    #+#             */
+/*   Updated: 2023/05/17 23:34:40 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+int main()
 {
-	if (lst && f)
-	{
-		while (lst != NULL)
-		{
-			(*f)(lst->content);
-			lst = lst->next;
-		}
-	}
+	char *str = NULL;
+	
+	printf("%s\n", str);
+	ft_printf("%s\n", str);
+	return (0);
 }
+	
