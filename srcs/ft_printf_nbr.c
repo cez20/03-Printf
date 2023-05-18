@@ -6,11 +6,11 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:17:59 by cemenjiv          #+#    #+#             */
-/*   Updated: 2021/12/13 19:25:23 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2023/05/17 22:35:09 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../include/ft_printf/ft_printf.h"
 
 void	ft_putnbr_new(size_t n, int *count, char **buf)
 {
