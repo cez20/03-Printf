@@ -10,3 +10,4 @@ libftprintf.a
 *test
 libft/libft.a
 .vimrc
+srcs/
