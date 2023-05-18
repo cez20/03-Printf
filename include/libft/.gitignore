@@ -1,0 +1,9 @@
+# Don't track content of these folder
+
+objs/*.o
+.DS_Store
+libftTester
+libft-war-machine
+a.out
+libft-unit-test
+libft.a
